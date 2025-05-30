@@ -34,6 +34,7 @@ func (s *Snake) Update() error {
 	if inpututil.KeyPressDuration(ebiten.KeyK) > 0 {
 		s.facing = Direction(DirectionUp)
 	}
+
 	return nil
 }
 
@@ -43,6 +44,23 @@ func (s *Snake) Tick() {
 
 	if s.Position.X == s.fruit.Position.X && s.Position.Y == s.fruit.Position.Y {
 		s.fruit.RandomizePosition()
+		return
+	}
+
+	if s.Position.X >= 640 {
+		s.Position.X = 0
+	}
+
+	if s.Position.X < 0 {
+		s.Position.X = 608
+	}
+
+	if s.Position.Y >= 640 {
+		s.Position.Y = 0
+	}
+
+	if s.Position.Y < 0 {
+		s.Position.Y = 608
 	}
 }
 
