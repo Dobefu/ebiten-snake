@@ -1,23 +1,70 @@
 package main
 
 import (
+	"fmt"
 	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
 type Snake struct {
 	GameObject
 
-	X float32
-	Y float32
+	Position Vector2
+
+	facing   Direction
+	length   int
+	segments []Vector2
 }
 
 func (s *Snake) Update() error {
+	if inpututil.KeyPressDuration(ebiten.KeyH) > 0 {
+		s.facing = Direction(DirectionLeft)
+	}
+
+	if inpututil.KeyPressDuration(ebiten.KeyL) > 0 {
+		s.facing = Direction(DirectionRight)
+	}
+
+	if inpututil.KeyPressDuration(ebiten.KeyJ) > 0 {
+		s.facing = Direction(DirectionDown)
+	}
+
+	if inpututil.KeyPressDuration(ebiten.KeyK) > 0 {
+		s.facing = Direction(DirectionUp)
+	}
 	return nil
 }
 
+func (s *Snake) Tick() {
+	s.Position.X += s.facing.X * 32
+	s.Position.Y += s.facing.Y * 32
+}
+
 func (s *Snake) Draw(screen *ebiten.Image) {
-	vector.DrawFilledRect(screen, s.X, s.Y, 32, 32, color.White, true)
+	ebitenutil.DebugPrint(screen, fmt.Sprint(s.facing))
+	vector.DrawFilledRect(
+		screen,
+		s.Position.X,
+		s.Position.Y,
+		32,
+		32,
+		color.Gray16{Y: 0xffff},
+		true,
+	)
+
+	for _, segment := range s.segments {
+		vector.DrawFilledRect(
+			screen,
+			segment.X,
+			segment.Y,
+			32,
+			32,
+			color.Gray16{Y: 0xffff},
+			true,
+		)
+	}
 }

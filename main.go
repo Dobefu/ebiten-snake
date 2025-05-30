@@ -9,10 +9,26 @@ import (
 type Game struct {
 	ebiten.Game
 
+	tickRate    int
+	tickIndex   int
 	gameObjects []GameObject
 }
 
+func (g *Game) AddGameObject(gameObject GameObject) {
+	g.gameObjects = append(g.gameObjects, gameObject)
+}
+
 func (g *Game) Update() (err error) {
+	g.tickIndex -= 1
+
+	if g.tickIndex <= 0 {
+		g.tickIndex = g.tickRate
+
+		for _, gameObject := range g.gameObjects {
+			gameObject.Tick()
+		}
+	}
+
 	for _, gameObject := range g.gameObjects {
 		err = gameObject.Update()
 
@@ -31,15 +47,15 @@ func (g *Game) Draw(screen *ebiten.Image) {
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 240, 240
+	return 640, 640
 }
 
 func main() {
-	ebiten.SetWindowSize(480, 480)
+	ebiten.SetWindowSize(640, 640)
 	ebiten.SetWindowTitle("Snake")
 
-	game := &Game{}
-	game.gameObjects = append(game.gameObjects, &Snake{X: 10, Y: 10})
+	game := &Game{tickRate: 30}
+	game.AddGameObject(&Snake{Position: Vector2{X: 288, Y: 288}})
 
 	err := ebiten.RunGame(game)
 
