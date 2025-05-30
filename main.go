@@ -4,17 +4,30 @@ import (
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
-type Game struct{}
+type Game struct {
+	ebiten.Game
 
-func (g *Game) Update() error {
+	gameObjects []GameObject
+}
+
+func (g *Game) Update() (err error) {
+	for _, gameObject := range g.gameObjects {
+		err = gameObject.Update()
+
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, "Hello, World!")
+	for _, gameObject := range g.gameObjects {
+		gameObject.Draw(screen)
+	}
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
@@ -25,7 +38,10 @@ func main() {
 	ebiten.SetWindowSize(480, 480)
 	ebiten.SetWindowTitle("Snake")
 
-	err := ebiten.RunGame(&Game{})
+	game := &Game{}
+	game.gameObjects = append(game.gameObjects, &Snake{X: 10, Y: 10})
+
+	err := ebiten.RunGame(game)
 
 	if err != nil {
 		log.Fatal(err)
