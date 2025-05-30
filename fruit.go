@@ -41,6 +41,6 @@ func (f *Fruit) Draw(screen *ebiten.Image) {
 }
 
 func (f *Fruit) RandomizePosition() {
-	f.Position.X = float32(rand.N(21) * 32)
-	f.Position.Y = float32(rand.N(21) * 32)
+	f.Position.X = float32(rand.N(20) * 32)
+	f.Position.Y = float32(rand.N(20) * 32)
 }
