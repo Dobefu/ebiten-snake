@@ -14,7 +14,7 @@ type Snake struct {
 	Position Vector2
 
 	facing   Direction
-	length   int
+	fruit    *Fruit
 	segments []Vector2
 }
 
@@ -40,6 +40,10 @@ func (s *Snake) Update() error {
 func (s *Snake) Tick() {
 	s.Position.X += s.facing.X * 32
 	s.Position.Y += s.facing.Y * 32
+
+	if s.Position.X == s.fruit.Position.X && s.Position.Y == s.fruit.Position.Y {
+		s.fruit.RandomizePosition()
+	}
 }
 
 func (s *Snake) Draw(screen *ebiten.Image) {

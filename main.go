@@ -60,8 +60,15 @@ func main() {
 	ebiten.SetWindowSize(640, 640)
 	ebiten.SetWindowTitle("Snake")
 
-	game.AddGameObject(&Snake{Position: Vector2{X: 288, Y: 288}})
-	game.AddGameObject(&Fruit{})
+	snake := &Snake{Position: Vector2{X: 288, Y: 288}}
+	fruit := &Fruit{}
+
+	snake.fruit = fruit
+	fruit.snake = snake
+	fruit.RandomizePosition()
+
+	game.AddGameObject(snake)
+	game.AddGameObject(fruit)
 
 	err := ebiten.RunGame(game)
 

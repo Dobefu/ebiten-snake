@@ -3,6 +3,7 @@ package main
 import (
 	"image/color"
 	"math"
+	"math/rand/v2"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/vector"
@@ -12,6 +13,7 @@ type Fruit struct {
 	GameObject
 
 	Position Vector2
+	snake    *Snake
 }
 
 func (f *Fruit) Update() error {
@@ -36,4 +38,9 @@ func (f *Fruit) Draw(screen *ebiten.Image) {
 		},
 		true,
 	)
+}
+
+func (f *Fruit) RandomizePosition() {
+	f.Position.X = float32(rand.N(21) * 32)
+	f.Position.Y = float32(rand.N(21) * 32)
 }
