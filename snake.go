@@ -1,11 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
@@ -45,7 +43,6 @@ func (s *Snake) Tick() {
 }
 
 func (s *Snake) Draw(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, fmt.Sprint(s.facing))
 	vector.DrawFilledRect(
 		screen,
 		s.Position.X,
