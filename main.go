@@ -6,11 +6,16 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
+var (
+	game = &Game{tickRate: 30}
+)
+
 type Game struct {
 	ebiten.Game
 
+	frame       int64
 	tickRate    int
-	tickIndex   int
+	tickIndex   float64
 	gameObjects []GameObject
 }
 
@@ -19,10 +24,11 @@ func (g *Game) AddGameObject(gameObject GameObject) {
 }
 
 func (g *Game) Update() (err error) {
-	g.tickIndex -= 1
+	g.frame += 1
+	g.tickIndex -= ebiten.ActualFPS() / 60
 
 	if g.tickIndex <= 0 {
-		g.tickIndex = g.tickRate
+		g.tickIndex = float64(g.tickRate)
 
 		for _, gameObject := range g.gameObjects {
 			gameObject.Tick()
@@ -54,8 +60,8 @@ func main() {
 	ebiten.SetWindowSize(640, 640)
 	ebiten.SetWindowTitle("Snake")
 
-	game := &Game{tickRate: 30}
 	game.AddGameObject(&Snake{Position: Vector2{X: 288, Y: 288}})
+	game.AddGameObject(&Fruit{})
 
 	err := ebiten.RunGame(game)
 
