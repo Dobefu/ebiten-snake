@@ -2,6 +2,7 @@ package main
 
 import (
 	"image/color"
+	"os"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
@@ -52,6 +53,12 @@ func (s *Snake) Tick() {
 
 	s.Position.X += s.facing.X * 32
 	s.Position.Y += s.facing.Y * 32
+
+	for _, segment := range s.segments {
+		if s.Position.X == segment.X && s.Position.Y == segment.Y {
+			os.Exit(0)
+		}
+	}
 
 	if s.Position.X >= 640 {
 		s.Position.X = 0
