@@ -117,7 +117,7 @@ func (s *Snake) Draw(screen *ebiten.Image) {
 	vector.DrawFilledRect(
 		screen,
 		s.drawPosition.X,
-		s.drawPosition.Y,
+		s.drawPosition.Y+64,
 		32,
 		32,
 		color.Gray{Y: 255},
@@ -131,7 +131,7 @@ func (s *Snake) Draw(screen *ebiten.Image) {
 		vector.DrawFilledRect(
 			screen,
 			s.segments[i].drawPosition.X,
-			s.segments[i].drawPosition.Y,
+			s.segments[i].drawPosition.Y+64,
 			32,
 			32,
 			color.Gray{Y: 128 + uint8((float32(i)/float32(s.length))*127)},

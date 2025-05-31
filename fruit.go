@@ -29,8 +29,8 @@ func (f *Fruit) Draw(screen *ebiten.Image) {
 	vector.DrawFilledCircle(
 		screen,
 		f.Position.X+16,
-		f.Position.Y+16,
-		16+float32(math.Sin(float64(game.frame)/10)*2)-2,
+		f.Position.Y+16+64,
+		16+float32(math.Sin(float64(game.frame)/10)*2)-2.5,
 		color.RGBA{
 			R: 255,
 			G: brightness,
@@ -43,6 +43,7 @@ func (f *Fruit) Draw(screen *ebiten.Image) {
 func (f *Fruit) RandomizePosition() {
 	canPlace := true
 
+	// Temporarily move the fruit off-screen while trying to place it.
 	f.Position.X = -99
 	f.Position.Y = -99
 
