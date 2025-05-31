@@ -1,2 +1,3 @@
 tmp/
 ebiten-snake
+wasm/snake.wasm
