@@ -27,22 +27,30 @@ type Snake struct {
 }
 
 func (s *Snake) Update() error {
-	if inpututil.KeyPressDuration(ebiten.KeyH) > 0 &&
+	if (inpututil.KeyPressDuration(ebiten.KeyH) > 0 ||
+		inpututil.KeyPressDuration(ebiten.KeyLeft) > 0 ||
+		inpututil.KeyPressDuration(ebiten.KeyA) > 0) &&
 		s.facing != Direction(DirectionRight) {
 		s.facing = Direction(DirectionLeft)
 	}
 
-	if inpututil.KeyPressDuration(ebiten.KeyL) > 0 &&
+	if (inpututil.KeyPressDuration(ebiten.KeyL) > 0 ||
+		inpututil.KeyPressDuration(ebiten.KeyRight) > 0 ||
+		inpututil.KeyPressDuration(ebiten.KeyD) > 0) &&
 		s.facing != Direction(DirectionLeft) {
 		s.facing = Direction(DirectionRight)
 	}
 
-	if inpututil.KeyPressDuration(ebiten.KeyJ) > 0 &&
+	if (inpututil.KeyPressDuration(ebiten.KeyJ) > 0 ||
+		inpututil.KeyPressDuration(ebiten.KeyDown) > 0 ||
+		inpututil.KeyPressDuration(ebiten.KeyS) > 0) &&
 		s.facing != Direction(DirectionUp) {
 		s.facing = Direction(DirectionDown)
 	}
 
-	if inpututil.KeyPressDuration(ebiten.KeyK) > 0 &&
+	if (inpututil.KeyPressDuration(ebiten.KeyK) > 0 ||
+		inpututil.KeyPressDuration(ebiten.KeyUp) > 0 ||
+		inpututil.KeyPressDuration(ebiten.KeyW) > 0) &&
 		s.facing != Direction(DirectionDown) {
 		s.facing = Direction(DirectionUp)
 	}
