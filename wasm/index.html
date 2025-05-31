@@ -1,10 +1,39 @@
 <!doctype html>
-<script src="wasm_exec.js"></script>
-<script>
-  const go = new Go();
-  WebAssembly.instantiateStreaming(fetch("snake.wasm"), go.importObject).then(
-    (result) => {
-      go.run(result.instance);
-    },
-  );
-</script>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Snake</title>
+
+    <style>
+      body {
+        -webkit-font-smoothing: antialiased;
+        align-items: center;
+        color-scheme: light dark;
+        display: flex;
+        flex-direction: column;
+        font-family: sans-serif;
+        font-size: 1.2rem;
+        height: 100vh;
+        justify-content: center;
+        margin: 1rem;
+      }
+
+      iframe {
+        aspect-ratio: 320 / 353;
+        border: 0;
+        border-radius: 1rem;
+        max-width: 100%;
+      }
+
+      p {
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <iframe src="game.html" title="Snake" width="640"></iframe>
+
+    <p>Created by <a href="https://cv.connor.nl">Connor van Spronssen</a></p>
+  </body>
+</html>
