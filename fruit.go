@@ -41,6 +41,35 @@ func (f *Fruit) Draw(screen *ebiten.Image) {
 }
 
 func (f *Fruit) RandomizePosition() {
-	f.Position.X = float32(rand.N(20) * 32)
-	f.Position.Y = float32(rand.N(20) * 32)
+	canPlace := true
+
+	f.Position.X = -99
+	f.Position.Y = -99
+
+	go func() {
+		var tx, ty float32
+
+		for {
+			canPlace = true
+			tx = float32(rand.N(20) * 32)
+			ty = float32(rand.N(20) * 32)
+
+			if tx == f.snake.Position.X && ty == f.snake.drawPosition.Y {
+				canPlace = false
+			} else {
+				for _, segment := range f.snake.segments {
+					if tx == segment.position.X && ty == segment.position.Y {
+						canPlace = false
+					}
+				}
+			}
+
+			if canPlace {
+				break
+			}
+		}
+
+		f.Position.X = tx
+		f.Position.Y = ty
+	}()
 }
