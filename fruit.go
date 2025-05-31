@@ -30,7 +30,7 @@ func (f *Fruit) Draw(screen *ebiten.Image) {
 		screen,
 		f.Position.X+16,
 		f.Position.Y+16,
-		16,
+		16+float32(math.Sin(float64(game.frame)/10)*2)-2,
 		color.RGBA{
 			R: 255,
 			G: brightness,
