@@ -60,7 +60,10 @@ func main() {
 	ebiten.SetWindowSize(640, 640)
 	ebiten.SetWindowTitle("Snake")
 
-	snake := &Snake{Position: Vector2{X: 288, Y: 288}}
+	snake := &Snake{
+		Position:     Vector2{X: 288, Y: 288},
+		drawPosition: Vector2{X: 288, Y: 288},
+	}
 	fruit := &Fruit{}
 
 	snake.fruit = fruit
