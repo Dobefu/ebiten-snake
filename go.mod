@@ -1,4 +1,4 @@
-module github.com/Dobefu.ebiten-snake
+module github.com/Dobefu/ebiten-snake
 
 go 1.24.3
 
